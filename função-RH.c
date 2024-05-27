@@ -124,8 +124,18 @@ int carregarDados(Cadastro *cadastros) {
         return 0;
     }
 
+    const char *format = 
+        " %49[^;];"  // Nome
+        "%d;"        // CPF
+        "%99[^;];"   // Endereço
+        "%d;"        // Número da Casa
+        "%49[^;];"   // Email
+        "%d;"        // Número de Telefone
+        "%49[^;];"   // Função
+        "%d\n";      // Matrícula
+
     int qtd = 0;
-    while (fscanf(file, " %49[^;];%d;%99[^;];%d;%49[^;];%d;%49[^;];%d\n", 
+    while (fscanf(file, format, 
                   cadastros[qtd].nome, &cadastros[qtd].cpf, cadastros[qtd].endereco, &cadastros[qtd].numeroCasa, 
                   cadastros[qtd].email, &cadastros[qtd].numeroTelefone, cadastros[qtd].funcao, 
                   &cadastros[qtd].matricula) != EOF) {
@@ -136,6 +146,7 @@ int carregarDados(Cadastro *cadastros) {
     printf("Dados carregados com sucesso.\n");
     return qtd;
 }
+
 
 void cadastroFuncionarios() {
     Cadastro cadastroDeFuncionarios[qtdFuncionarios];
