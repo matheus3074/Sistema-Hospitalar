@@ -21,5 +21,6 @@ void corrigirCadastro(Cadastro *funcionario);
 void salvarDados(Cadastro *cadastros, int qtd);
 int carregarDados(Cadastro *cadastros);
 void cadastroFuncionarios();
+void acessarDados (Cadastro *cadastros, int qtd);
 
 #endif

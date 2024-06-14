@@ -192,3 +192,24 @@ void cadastroFuncionarios() {
     salvarDados(cadastroDeFuncionarios, contagem);
     printf("Cadastro concluído.\n");
 }
+
+void acessarDados (Cadastro *cadastros, int qtd){
+    char cpf[12];
+
+    system("cls");
+
+    printf("informe o CPF do funcionario que deseja acessar: "),
+    fgets(cpf, sizeof(cpf), stdin);
+    cpf[strcspn(cpf, "\n")] = 0;
+
+    for(int i = 0; i < qtd; i++) {
+        if (strcmp(cadastros[i].cpf, cpf) == 0) {
+            mostrarCadastro(cadastros[i]);
+            corrigirCadastro(&cadastros[i]);
+            salvarDados(cadastros, qtd);
+            return;
+        }
+    }
+
+    printf("Funcionário com CPF %s não encontrado. \n", cpf);
+}
