@@ -1,20 +1,7 @@
+#include "cadastro.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define qtdFuncionarios 50
-#define FILENAME "funcionarios.txt"
-
-typedef struct {
-    char nome[50];
-    int cpf;
-    char endereco[100];
-    int numeroCasa;
-    char email[50];
-    int numeroTelefone;
-    char funcao[50];
-    int matricula;
-} Cadastro;
 
 int gerarMatricula(int contagem) {
     return 1000 + contagem;
@@ -147,7 +134,6 @@ int carregarDados(Cadastro *cadastros) {
     return qtd;
 }
 
-
 void cadastroFuncionarios() {
     Cadastro cadastroDeFuncionarios[qtdFuncionarios];
     char resposta;
@@ -205,9 +191,4 @@ void cadastroFuncionarios() {
 
     salvarDados(cadastroDeFuncionarios, contagem);
     printf("Cadastro concluído.\n");
-}
-
-int main() {
-    cadastroFuncionarios();
-    return 0;
 }
