@@ -18,6 +18,8 @@ void pausarTela() {
 }
 
 void adicionarPaciente(Paciente pacientes[], int *quantidadePacientes) {
+    system("cls");
+
     if (*quantidadePacientes >= MAX_PACIENTES) {
         printf("Capacidade máxima de pacientes atingida.\n");
         return;
@@ -100,6 +102,8 @@ int compararGravidade(const void *a, const void *b) {
 }
 
 void triagemPacientes(Paciente pacientes[], int quantidadePacientes) {
+    system("cls");
+
     qsort(pacientes, quantidadePacientes, sizeof(Paciente), compararGravidade);
 
     if(quantidadePacientes <= 0) {
