@@ -6,11 +6,11 @@
 
 typedef struct {
     char nome[50];
-    int cpf;
+    char cpf[13];
     char endereco[100];
     int numeroCasa;
     char email[50];
-    int numeroTelefone;
+    char numeroTelefone[13];
     char funcao[50];
     int matricula;
 } Cadastro;

@@ -1,0 +1,3 @@
+matheus;1708435565;rua;15;matheus@123;75;maioral;1000
+d,;12;dd;1;2;3;2;1001
+matheus;01708435565;rua barra dourada;167;matheus@123;75 99269-397;;1002

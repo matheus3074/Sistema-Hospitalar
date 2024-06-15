@@ -10,11 +10,11 @@ int gerarMatricula(int contagem) {
 void mostrarCadastro(Cadastro funcionario) {
     printf("\nDados do funcionario cadastrado:\n");
     printf("Nome: %s\n", funcionario.nome);
-    printf("CPF: %d\n", funcionario.cpf);
+    printf("CPF: %s\n", funcionario.cpf);
     printf("Endereco: %s\n", funcionario.endereco);
     printf("Numero da casa: %d\n", funcionario.numeroCasa);
     printf("E-mail: %s\n", funcionario.email);
-    printf("Telefone: %d\n", funcionario.numeroTelefone);
+    printf("Telefone: %s\n", funcionario.numeroTelefone);
     printf("Funcao: %s\n", funcionario.funcao);
     printf("Matricula: %d\n", funcionario.matricula);
 }
@@ -95,7 +95,7 @@ void salvarDados(Cadastro *cadastros, int qtd) {
     }
 
     for (int i = 0; i < qtd; i++) {
-        fprintf(file, "%s;%d;%s;%d;%s;%d;%s;%d\n", cadastros[i].nome, cadastros[i].cpf, cadastros[i].endereco, 
+        fprintf(file, "%s;%s;%s;%d;%s;%s;%s;%d\n", cadastros[i].nome, cadastros[i].cpf, cadastros[i].endereco, 
                 cadastros[i].numeroCasa, cadastros[i].email, cadastros[i].numeroTelefone, cadastros[i].funcao, 
                 cadastros[i].matricula);
     }
@@ -113,11 +113,11 @@ int carregarDados(Cadastro *cadastros) {
 
     const char *format = 
         " %49[^;];"  // Nome
-        "%d;"        // CPF
+        "%12[^;];"        // CPF
         "%99[^;];"   // Endereço
         "%d;"        // Número da Casa
         "%49[^;];"   // Email
-        "%d;"        // Número de Telefone
+        "%12[^;];"        // Número de Telefone
         "%49[^;];"   // Função
         "%d\n";      // Matrícula
 
@@ -145,8 +145,7 @@ void cadastroFuncionarios() {
         cadastroDeFuncionarios[contagem].nome[strcspn(cadastroDeFuncionarios[contagem].nome, "\n")] = 0; // Remove newline
         
         printf("\nInforme o CPF do funcionario: ");
-        scanf("%d", &cadastroDeFuncionarios[contagem].cpf);
-        getchar(); // Limpa o buffer do scanf
+		fgets(cadastroDeFuncionarios[contagem].cpf, sizeof(cadastroDeFuncionarios[contagem].cpf), stdin);        getchar(); // Limpa o buffer do scanf
 
         printf("\nInforme o endereco do funcionario: ");
         fgets(cadastroDeFuncionarios[contagem].endereco, sizeof(cadastroDeFuncionarios[contagem].endereco), stdin);
@@ -161,7 +160,7 @@ void cadastroFuncionarios() {
         getchar(); // Limpa o buffer do scanf
 
         printf("\nInforme o telefone do funcionario: ");
-        scanf("%d", &cadastroDeFuncionarios[contagem].numeroTelefone);
+        fgets(cadastroDeFuncionarios[contagem].numeroTelefone, sizeof(cadastroDeFuncionarios[contagem].numeroTelefone), stdin);
         getchar(); // Limpa o buffer do scanf
 
         printf("\nInforme a funcao do funcionario: ");

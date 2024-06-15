@@ -7,7 +7,7 @@
 void mostrarMenu() {
     printf("\n=== Menu Inicial ===\n");
     printf("1. Cadastrar Funcionários\n");
-    printf("2. Acessar dados do funcionarios\n");
+    printf("2. Acessar dados do funcionários\n");
     printf("3. Criar Documento de Evolução do Paciente\n");
     printf("4. Adicionar Paciente\n");
     printf("5. Triagem de Pacientes\n");
@@ -16,10 +16,13 @@ void mostrarMenu() {
 }
 
 int main() {
+    Cadastro cadastros[qtdFuncionarios];
     Paciente pacientes[MAX_PACIENTES];
+    int quantidadeCadastros = 0;
     int quantidadePacientes = 0;
     int opcao;
-    char cpf;
+    char cpf[12];
+
     do {
         mostrarMenu();
         scanf("%d", &opcao);
@@ -30,7 +33,7 @@ int main() {
                 cadastroFuncionarios();
                 break;
             case 2:
-                acessarDados (Cadastro *cadastros, int qtd);
+                acessarDados(cadastros, quantidadeCadastros);
                 break;
             case 3:
                 documentoDeEvolucaoDoPaciente();
@@ -48,7 +51,7 @@ int main() {
                 printf("Opção inválida. Tente novamente.\n");
                 break;
         }
-    } while (opcao != 5);
+    } while (opcao != 6);
 
     return 0;
 }
