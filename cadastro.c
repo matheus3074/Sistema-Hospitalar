@@ -21,6 +21,9 @@ void mostrarCadastro(Cadastro funcionario) {
 
 void corrigirCadastro(Cadastro *funcionario) {
     char opcao;
+
+    system("cls");
+
     printf("\nDeseja corrigir algum campo? (S/N): ");
     scanf(" %c", &opcao);
     getchar(); // Limpa o buffer do scanf
@@ -47,8 +50,8 @@ void corrigirCadastro(Cadastro *funcionario) {
                 break;
             case 2:
                 printf("Informe o novo CPF: ");
-                scanf("%d", &funcionario->cpf);
-                getchar(); // Limpa o buffer do scanf
+                fgets(funcionario->cpf, sizeof(funcionario->cpf), stdin);
+                funcionario->cpf[strcspn(funcionario->cpf, "\n")] = 0; // Remove newline
                 break;
             case 3:
                 printf("Informe o novo endereco: ");
@@ -62,13 +65,13 @@ void corrigirCadastro(Cadastro *funcionario) {
                 break;
             case 5:
                 printf("Informe o novo e-mail: ");
-                scanf("%s", funcionario->email);
-                getchar(); // Limpa o buffer do scanf
+                fgets(funcionario->email, sizeof(funcionario->email), stdin);
+                funcionario->email[strcspn(funcionario->email, "\n")] = 0; // Remove newline
                 break;
             case 6:
                 printf("Informe o novo telefone: ");
-                scanf("%d", &funcionario->numeroTelefone);
-                getchar(); // Limpa o buffer do scanf
+                fgets(funcionario->numeroTelefone, sizeof(funcionario->numeroTelefone), stdin);
+                funcionario->numeroTelefone[strcspn(funcionario->numeroTelefone, "\n")] = 0; // Remove newline
                 break;
             case 7:
                 printf("Informe a nova funcao: ");
@@ -80,6 +83,7 @@ void corrigirCadastro(Cadastro *funcionario) {
                 break;
         }
 
+        system("cls");
         mostrarCadastro(*funcionario);
         printf("\nDeseja corrigir outro campo? (S/N): ");
         scanf(" %c", &opcao);
@@ -123,8 +127,8 @@ int carregarDados(Cadastro *cadastros) {
 
     int qtd = 0;
     while (fscanf(file, format, 
-                  cadastros[qtd].nome, &cadastros[qtd].cpf, cadastros[qtd].endereco, &cadastros[qtd].numeroCasa, 
-                  cadastros[qtd].email, &cadastros[qtd].numeroTelefone, cadastros[qtd].funcao, 
+                  cadastros[qtd].nome, cadastros[qtd].cpf, cadastros[qtd].endereco, &cadastros[qtd].numeroCasa, 
+                  cadastros[qtd].email, cadastros[qtd].numeroTelefone, cadastros[qtd].funcao, 
                   &cadastros[qtd].matricula) != EOF) {
         qtd++;
     }
@@ -134,81 +138,85 @@ int carregarDados(Cadastro *cadastros) {
     return qtd;
 }
 
-void cadastroFuncionarios() {
-    Cadastro cadastroDeFuncionarios[qtdFuncionarios];
+void cadastroFuncionarios(Cadastro *cadastroDeFuncionarios, int *quantidadeCadastros) {
     char resposta;
-    int contagem = carregarDados(cadastroDeFuncionarios);
 
     do {
+        system("cls");
         printf("Informe o nome do funcionario: ");
-        fgets(cadastroDeFuncionarios[contagem].nome, sizeof(cadastroDeFuncionarios[contagem].nome), stdin);
-        cadastroDeFuncionarios[contagem].nome[strcspn(cadastroDeFuncionarios[contagem].nome, "\n")] = 0; // Remove newline
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].nome, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].nome), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].nome[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].nome, "\n")] = 0; // Remove newline
         
         printf("\nInforme o CPF do funcionario: ");
-		fgets(cadastroDeFuncionarios[contagem].cpf, sizeof(cadastroDeFuncionarios[contagem].cpf), stdin);        getchar(); // Limpa o buffer do scanf
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].cpf, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].cpf), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].cpf[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].cpf, "\n")] = 0; // Remove newline
 
         printf("\nInforme o endereco do funcionario: ");
-        fgets(cadastroDeFuncionarios[contagem].endereco, sizeof(cadastroDeFuncionarios[contagem].endereco), stdin);
-        cadastroDeFuncionarios[contagem].endereco[strcspn(cadastroDeFuncionarios[contagem].endereco, "\n")] = 0; // Remove newline
-        
-        printf("\nInforme o numero da casa do funcionario: ");
-        scanf("%d", &cadastroDeFuncionarios[contagem].numeroCasa);
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].endereco, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].endereco), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].endereco[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].endereco, "\n")] = 0; // Remove newline
+
+        printf("\nInforme o numero da casa: ");
+        scanf("%d", &cadastroDeFuncionarios[*quantidadeCadastros].numeroCasa);
         getchar(); // Limpa o buffer do scanf
-        
+
         printf("\nInforme o e-mail do funcionario: ");
-        scanf("%s", cadastroDeFuncionarios[contagem].email);
-        getchar(); // Limpa o buffer do scanf
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].email, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].email), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].email[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].email, "\n")] = 0; // Remove newline
 
         printf("\nInforme o telefone do funcionario: ");
-        fgets(cadastroDeFuncionarios[contagem].numeroTelefone, sizeof(cadastroDeFuncionarios[contagem].numeroTelefone), stdin);
-        getchar(); // Limpa o buffer do scanf
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].numeroTelefone, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].numeroTelefone), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].numeroTelefone[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].numeroTelefone, "\n")] = 0; // Remove newline
 
         printf("\nInforme a funcao do funcionario: ");
-        fgets(cadastroDeFuncionarios[contagem].funcao, sizeof(cadastroDeFuncionarios[contagem].funcao), stdin);
-        cadastroDeFuncionarios[contagem].funcao[strcspn(cadastroDeFuncionarios[contagem].funcao, "\n")] = 0; // Remove newline
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].funcao, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].funcao), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].funcao[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].funcao, "\n")] = 0; // Remove newline
 
-        // Gerar matrícula para o funcionário
-        cadastroDeFuncionarios[contagem].matricula = gerarMatricula(contagem);
+        cadastroDeFuncionarios[*quantidadeCadastros].matricula = gerarMatricula(*quantidadeCadastros);
+        
+        printf("\nFuncionario cadastrado com sucesso!\n");
+        mostrarCadastro(cadastroDeFuncionarios[*quantidadeCadastros]);
+        
+        corrigirCadastro(&cadastroDeFuncionarios[*quantidadeCadastros]);
 
-        // Mostra os dados cadastrados e pergunta se algo precisa ser corrigido
-        mostrarCadastro(cadastroDeFuncionarios[contagem]);
-        corrigirCadastro(&cadastroDeFuncionarios[contagem]);
+        (*quantidadeCadastros)++;
 
-        printf("\n\nDeseja cadastrar um novo funcionario (S/N)? ");
-        scanf("%c", &resposta);
+        printf("\nDeseja cadastrar outro funcionario? (S/N): ");
+        scanf(" %c", &resposta);
         getchar(); // Limpa o buffer do scanf
 
-        contagem++;
+    } while (resposta == 'S' || resposta == 's');
 
-        if (resposta == 'N' || resposta == 'n' || contagem >= qtdFuncionarios) {
-            break;
-        }
-
-        system("cls");
-
-    } while (1);
-
-    salvarDados(cadastroDeFuncionarios, contagem);
-    printf("Cadastro concluído.\n");
+    salvarDados(cadastroDeFuncionarios, *quantidadeCadastros);
 }
 
-void acessarDados (Cadastro *cadastros, int qtd){
-    char cpf[12];
-
+void acessarDados(Cadastro *cadastros, int quantidadeCadastros) {
     system("cls");
+    int matricula;
+    printf("Informe a matricula do funcionario: ");
+    scanf("%d", &matricula);
+    getchar(); // Limpa o buffer do scanf
 
-    printf("informe o CPF do funcionario que deseja acessar: "),
-    fgets(cpf, sizeof(cpf), stdin);
-    cpf[strcspn(cpf, "\n")] = 0;
-
-    for(int i = 0; i < qtd; i++) {
-        if (strcmp(cadastros[i].cpf, cpf) == 0) {
+    int encontrado = 0;
+    for (int i = 0; i < quantidadeCadastros; i++) {
+        if (cadastros[i].matricula == matricula) {
             mostrarCadastro(cadastros[i]);
+            encontrado = 1;
+
+            printf("\nPressione Enter para continuar...");
+            getchar(); // Pausa para permitir que o usuário veja a informação
+            
             corrigirCadastro(&cadastros[i]);
-            salvarDados(cadastros, qtd);
-            return;
+            salvarDados(cadastros, quantidadeCadastros);
+            
+
+            break;
         }
     }
 
-    printf("Funcionário com CPF %s não encontrado. \n", cpf);
+    if (!encontrado) {
+        printf("Funcionario nao encontrado.\n");
+    }
+
+    printf("\nPressione Enter para voltar ao menu principal...");
+    getchar(); // Pausa para permitir que o usuário veja a informação
 }

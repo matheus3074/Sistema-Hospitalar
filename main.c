@@ -18,30 +18,35 @@ void mostrarMenu() {
 int main() {
     Cadastro cadastros[qtdFuncionarios];
     Paciente pacientes[MAX_PACIENTES];
-    int quantidadeCadastros = 0;
+    int quantidadeCadastros = carregarDados(cadastros); // Carrega dados no início
     int quantidadePacientes = 0;
     int opcao;
-    char cpf[12];
 
     do {
+        system("cls");
         mostrarMenu();
         scanf("%d", &opcao);
         getchar(); // Limpar buffer do scanf
 
         switch (opcao) {
             case 1:
-                cadastroFuncionarios();
+                system("cls");
+                cadastroFuncionarios(cadastros, &quantidadeCadastros);
                 break;
             case 2:
+                system("cls");
                 acessarDados(cadastros, quantidadeCadastros);
                 break;
             case 3:
+                system("cls");
                 documentoDeEvolucaoDoPaciente();
                 break;
             case 4:
+                system("cls");
                 adicionarPaciente(pacientes, &quantidadePacientes);
                 break;
             case 5:
+                system("cls");
                 triagemPacientes(pacientes, quantidadePacientes);
                 break;
             case 6:

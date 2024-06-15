@@ -4,7 +4,7 @@
 void documentoDeEvolucaoDoPaciente() {
     FILE *arquivoDaEvolucaoDoPaciente; // Declaração de ponteiro de arquivo
     char nomePaciente[100], nomeMedico[100], idade[20], crm[20], diagnostico[1000], leito[5], sexo[10], diaMesAno[10];
-
+    
     arquivoDaEvolucaoDoPaciente = fopen("Evolucao_do_paciente.txt", "w");
 
     if (arquivoDaEvolucaoDoPaciente == NULL) {
