@@ -46,18 +46,16 @@ void documentoDeEvolucaoDoPaciente() {
     }
 }
 
-void documentoDeAltaDoPaciente (){
+void documentoDeAltaDoPaciente() {
     FILE *arquivoDeAltaDoPaciente; 
-    char nomePaciente[100], nomeMedico[100], crm[20] ,data[10], horario[5], clinica[100];
-    
+    char nomePaciente[100], nomeMedico[100], crm[20], data[10], horario[5], clinica[100];
 
-    arquivoDeAltaDoPaciente = fopen("Evolucao_do_paciente.txt", "w");
+    arquivoDeAltaDoPaciente = fopen("Alta_do_paciente.txt", "w");
 
     if (arquivoDeAltaDoPaciente == NULL) {
-        printf("Erro ao abrir o arquivo!");
-        return 1;
-    }else {
-
+        printf("Erro ao abrir o arquivo!\n");
+        return;
+    } else {
         printf("Digite o nome do paciente: ");
         fgets(nomePaciente, sizeof(nomePaciente), stdin);
         
@@ -75,27 +73,23 @@ void documentoDeAltaDoPaciente (){
         printf("Digite o horário do boletim: ");
         fgets(horario, sizeof(horario), stdin);
          
-        printf("Escreva o nome da clinica: ");
+        printf("Escreva o nome da clínica: ");
         fgets(clinica, sizeof(clinica), stdin);
-
 
         fprintf(arquivoDeAltaDoPaciente, "--- Boletim médico ---\n\n");       
 
-        fprintf(arquivoDeAltaDoPaciente, "Data: %s\n",data);
+        fprintf(arquivoDeAltaDoPaciente, "Data: %s\n", data);
 
-        fprintf(arquivoDeAltaDoPaciente, "Horario: %s\n",horario);
+        fprintf(arquivoDeAltaDoPaciente, "Horário: %s\n", horario);
 
-        fprintf(arquivoDeAltaDoPaciente, "Paciente: %s ", nomePaciente);
+        fprintf(arquivoDeAltaDoPaciente, "Paciente: %s", nomePaciente);
 
-        fprintf(arquivoDeAltaDoPaciente, "O Hospital %s informa que o paciente Eunicio Lopes de Oliveira recebeu alta da unidade de tratamento intensivo (UTI) nesta sexta-feira (28), pela manhä. O paciente realizou nova ressonância magnética de crânio com contraste, que resultou normal Como diagnóstico final permanece Acidente Isquêmico Transitorio (ATT)", clinica);
+        fprintf(arquivoDeAltaDoPaciente, "O Hospital %s informa que o paciente Eunicio Lopes de Oliveira recebeu alta da unidade de tratamento intensivo (UTI) nesta sexta-feira (28), pela manhã. O paciente realizou nova ressonância magnética de crânio com contraste, que resultou normal. Como diagnóstico final permanece Acidente Isquêmico Transitório (ATT).", clinica);
 
-        fprintf(arquivoDeAltaDoPaciente, "Médico Responsável: %s CRM: %s ", nomeMedico, crm);
+        fprintf(arquivoDeAltaDoPaciente, "Médico Responsável: %s CRM: %s", nomeMedico, crm);
     
         fclose(arquivoDeAltaDoPaciente);
     
-        printf("Documento de evolução do paciente criado com sucesso!");
-    
-        return 0;
+        printf("Documento de alta do paciente criado com sucesso!\n");
     }
-
 }

@@ -17,6 +17,8 @@ void mostrarCadastro(Cadastro funcionario) {
     printf("Telefone: %s\n", funcionario.numeroTelefone);
     printf("Funcao: %s\n", funcionario.funcao);
     printf("Matricula: %d\n", funcionario.matricula);
+    printf("Login: %s\n", funcionario.login);
+    printf("Senha: %d\n", funcionario.senha);
 }
 
 void corrigirCadastro(Cadastro *funcionario) {
@@ -99,9 +101,9 @@ void salvarDados(Cadastro *cadastros, int qtd) {
     }
 
     for (int i = 0; i < qtd; i++) {
-        fprintf(file, "%s;%s;%s;%d;%s;%s;%s;%d\n", cadastros[i].nome, cadastros[i].cpf, cadastros[i].endereco, 
+        fprintf(file, "%s;%s;%s;%d;%s;%s;%s;%s, %s, %d\n", cadastros[i].nome, cadastros[i].cpf, cadastros[i].endereco, 
                 cadastros[i].numeroCasa, cadastros[i].email, cadastros[i].numeroTelefone, cadastros[i].funcao, 
-                cadastros[i].matricula);
+                cadastros[i].login, cadastros[i].senha, cadastros[i].matricula);
     }
 
     fclose(file);
@@ -123,6 +125,8 @@ int carregarDados(Cadastro *cadastros) {
         "%49[^;];"   // Email
         "%12[^;];"        // Número de Telefone
         "%49[^;];"   // Função
+        "%29[^;];" //login
+        "%29[^;];" //senha
         "%d\n";      // Matrícula
 
     int qtd = 0;
@@ -170,6 +174,14 @@ void cadastroFuncionarios(Cadastro *cadastroDeFuncionarios, int *quantidadeCadas
         printf("\nInforme a funcao do funcionario: ");
         fgets(cadastroDeFuncionarios[*quantidadeCadastros].funcao, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].funcao), stdin);
         cadastroDeFuncionarios[*quantidadeCadastros].funcao[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].funcao, "\n")] = 0; // Remove newline
+        
+        printf("\nCrie o login do funcionario: ");
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].login, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].login), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].login[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].login, "\n")] = 0; // Remove newline
+        
+        printf("\nCrie a senha do funcionario: ");
+        fgets(cadastroDeFuncionarios[*quantidadeCadastros].senha, sizeof(cadastroDeFuncionarios[*quantidadeCadastros].senha), stdin);
+        cadastroDeFuncionarios[*quantidadeCadastros].senha[strcspn(cadastroDeFuncionarios[*quantidadeCadastros].senha, "\n")] = 0; // Remove newline
 
         cadastroDeFuncionarios[*quantidadeCadastros].matricula = gerarMatricula(*quantidadeCadastros);
         
@@ -220,3 +232,4 @@ void acessarDados(Cadastro *cadastros, int quantidadeCadastros) {
     printf("\nPressione Enter para voltar ao menu principal...");
     getchar(); // Pausa para permitir que o usuário veja a informação
 }
+
