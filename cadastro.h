@@ -13,6 +13,8 @@ typedef struct {
     char numeroTelefone[13];
     char funcao[50];
     int matricula;
+    char login[30];
+    char senha[30];
 } Cadastro;
 
 int gerarMatricula(int contagem);

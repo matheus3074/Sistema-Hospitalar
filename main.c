@@ -9,9 +9,10 @@ void mostrarMenu() {
     printf("1. Cadastrar Funcionários\n");
     printf("2. Acessar dados do funcionários\n");
     printf("3. Criar Documento de Evolução do Paciente\n");
-    printf("4. Adicionar Paciente\n");
-    printf("5. Triagem de Pacientes\n");
-    printf("6. Sair\n");
+    printf("4. Criar Documento de Alta do Paciente\n");
+    printf("5. Adicionar Paciente\n");
+    printf("6. Triagem de Pacientes\n");
+    printf("7. Sair\n");
     printf("Escolha uma opção: ");
 }
 
@@ -43,13 +44,17 @@ int main() {
                 break;
             case 4:
                 system("cls");
-                adicionarPaciente(pacientes, &quantidadePacientes);
+                documentoDeAltaDoPaciente ();
                 break;
             case 5:
                 system("cls");
-                triagemPacientes(pacientes, quantidadePacientes);
+                adicionarPaciente(pacientes, &quantidadePacientes);
                 break;
             case 6:
+                system("cls");
+                triagemPacientes(pacientes, quantidadePacientes);
+                break;
+            case 7:
                 printf("Saindo...\n");
                 break;
             default:
