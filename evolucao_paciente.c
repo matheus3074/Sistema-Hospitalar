@@ -21,6 +21,8 @@ void documentoDeEvolucaoDoPaciente() {
         printf("Digite o nome do médico responsável: ");
         fgets(nomeMedico, sizeof(nomeMedico), stdin);
 
+        fflush(stdin);
+
         printf("Digite o CRM do médico: ");
         fgets(crm, sizeof(crm), stdin);
 
@@ -42,4 +44,58 @@ void documentoDeEvolucaoDoPaciente() {
 
         printf("Documento de evolução do paciente criado com sucesso!\n");
     }
+}
+
+void documentoDeAltaDoPaciente (){
+    FILE *arquivoDeAltaDoPaciente; 
+    char nomePaciente[100], nomeMedico[100], crm[20] ,data[10], horario[5], clinica[100];
+    
+
+    arquivoDeAltaDoPaciente = fopen("Evolucao_do_paciente.txt", "w");
+
+    if (arquivoDeAltaDoPaciente == NULL) {
+        printf("Erro ao abrir o arquivo!");
+        return 1;
+    }else {
+
+        printf("Digite o nome do paciente: ");
+        fgets(nomePaciente, sizeof(nomePaciente), stdin);
+        
+        printf("Digite o nome do médico responsável: ");
+        fgets(nomeMedico, sizeof(nomeMedico), stdin);
+
+        fflush(stdin);
+        
+        printf("Digite o CRM do médico: ");
+        fgets(crm, sizeof(crm), stdin);
+       
+        printf("Digite a data da requisição: ");
+        fgets(data, sizeof(data), stdin);
+
+        printf("Digite o horário do boletim: ");
+        fgets(horario, sizeof(horario), stdin);
+         
+        printf("Escreva o nome da clinica: ");
+        fgets(clinica, sizeof(clinica), stdin);
+
+
+        fprintf(arquivoDeAltaDoPaciente, "--- Boletim médico ---\n\n");       
+
+        fprintf(arquivoDeAltaDoPaciente, "Data: %s\n",data);
+
+        fprintf(arquivoDeAltaDoPaciente, "Horario: %s\n",horario);
+
+        fprintf(arquivoDeAltaDoPaciente, "Paciente: %s ", nomePaciente);
+
+        fprintf(arquivoDeAltaDoPaciente, "O Hospital %s informa que o paciente Eunicio Lopes de Oliveira recebeu alta da unidade de tratamento intensivo (UTI) nesta sexta-feira (28), pela manhä. O paciente realizou nova ressonância magnética de crânio com contraste, que resultou normal Como diagnóstico final permanece Acidente Isquêmico Transitorio (ATT)", clinica);
+
+        fprintf(arquivoDeAltaDoPaciente, "Médico Responsável: %s CRM: %s ", nomeMedico, crm);
+    
+        fclose(arquivoDeAltaDoPaciente);
+    
+        printf("Documento de evolução do paciente criado com sucesso!");
+    
+        return 0;
+    }
+
 }
