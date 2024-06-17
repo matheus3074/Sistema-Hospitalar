@@ -175,11 +175,10 @@ void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
         printf("1. Criar Documento de Evolução do Paciente\n");
         printf("2. Criar Documento de Alta do Paciente\n");
         printf("3. Criar Documento de Requisição do exame\n");
-        printf("4. Procurar documentos\n");
-        printf("5. Sair\n");
+        printf("4. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
-        getchar(); // Limpa o buffer do scanf
+        getchar(); 
 
         switch (opcao) {
         case 1:
@@ -195,46 +194,13 @@ void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
             requisicaoDeExames();
             break;
         case 4:
-            do {
-                system("cls");
-                limparTela();
-                printf("1. Procurar Documento de Evolução do Paciente\n");
-                printf("2. Procurar Documento de Alta do Paciente\n");
-                printf("3. Procurar Documento de Requisição do exame\n");
-                printf("4. Sair\n");
-                printf("Escolha uma opção: ");
-                scanf("%d", &opcaoDoc);
-                getchar(); // Limpa o buffer do scanf
-
-                switch (opcaoDoc) {
-                case 1:
-                    system("cls");
-                    acessarDocumentoEvolucao();
-                    break;
-                case 2:
-                    system("cls");
-                    acessarDocumentoAlta();
-                    break;
-                case 3:
-                    system("cls");
-                    acessarDocumentoRequisicaoExames();
-                    break;
-                case 4:
-                    printf("Saindo do menu de procura...\n");
-                    break;
-                default:
-                    printf("Opção inválida. Tente novamente.\n");
-                }
-            } while (opcaoDoc != 4);
-            break;
-        case 5:
             printf("Saindo...\n");
             system("cls");
             break;
         default:
             printf("Opção inválida. Tente novamente.\n");
         }
-    } while (opcao != 5);
+    } while (opcao != 4);
     
     loggedIn = 0;
 }
