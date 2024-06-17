@@ -18,6 +18,7 @@ void recepcaoMenu(Paciente pacientes[], int *quantidadePacientes);
 void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes);
 
 int login(Credential *credentials, int numCredentials);
+int loggedIn = 0;
 
 Credential adminCredentials[] = {
     {"matheus.azevedo", "matheus.1234"},
@@ -40,16 +41,15 @@ int main()
     int quantidadePacientes = 0;
 
     int opcao;
-    int loggedIn = 0;
+    
 
-    while (!loggedIn)
-    {
-        printf("Sistema de Gestão Hospitalar\n");
-        printf("1. Login Administrador\n");
-        printf("2. Acessar Recepção\n");
-        printf("3. Evolução de Pacientes\n");
-        printf("4. Sair\n");
-        printf("Escolha uma opção: ");
+    while (!loggedIn){
+        printf("\n\t--Sistema de Gestão Hospitalar--\n");
+        printf("\t  1. Login Administrador\n");
+        printf("\t  2. Acessar Recepção\n");
+        printf("\t  3. Evolução de Pacientes\n");
+        printf("\t  4. Sair\n");
+        printf("\t  Escolha uma opção: ");
         scanf("%d", &opcao);
         getchar(); // Limpa o buffer do scanf
 
@@ -87,9 +87,11 @@ int main()
     return 0;
 }
 
-int login(Credential *credentials, int numCredentials)
-{
+int login(Credential *credentials, int numCredentials){
     char username[50], password[50];
+    
+	system("cls");
+    
     printf("Usuário: ");
     fgets(username, sizeof(username), stdin);
     username[strcspn(username, "\n")] = 0; // Remove newline
@@ -106,6 +108,9 @@ int login(Credential *credentials, int numCredentials)
             return 1;
         }
     }
+    
+    system("cls");
+    
     printf("Usuário ou senha incorretos.\n");
     return 0;
 }
@@ -135,11 +140,14 @@ void adminMenu(Cadastro *cadastros, int *quantidadeCadastros)
         case 3:
             salvarDados(cadastros, *quantidadeCadastros);
             printf("Saindo...\n");
+            system("cls");
             break;
         default:
             printf("Opção inválida. Tente novamente.\n");
         }
     } while (opcao != 3);
+    
+    loggedIn = 0;
 }
 
 void recepcaoMenu(Paciente pacientes[], int *quantidadePacientes)
@@ -153,6 +161,8 @@ void recepcaoMenu(Paciente pacientes[], int *quantidadePacientes)
         scanf("%d", &opcao);
         executarOpcao(opcao, pacientes, quantidadePacientes);
     } while (opcao != 3);
+    
+    loggedIn = 0;
 }
 
 void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
@@ -219,9 +229,12 @@ void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
             break;
         case 5:
             printf("Saindo...\n");
+            system("cls");
             break;
         default:
             printf("Opção inválida. Tente novamente.\n");
         }
     } while (opcao != 5);
+    
+    loggedIn = 0;
 }

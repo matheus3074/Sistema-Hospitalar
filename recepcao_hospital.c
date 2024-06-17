@@ -65,6 +65,8 @@ void agendarConsulta() {
     if (num_consultas < MAX_PACIENTES) {
         printf("\n=== Agendamento de Consulta ===\n");
 
+		fflush(stdin);
+
         printf("Digite o nome do médico: ");
         fgets(consulta.nome_medico, MAX_COMPRIMENTO_NOME, stdin);
         consulta.nome_medico[strcspn(consulta.nome_medico, "\n")] = '\0';
@@ -73,9 +75,13 @@ void agendarConsulta() {
         fgets(consulta.data, MAX_DATA_LENGTH, stdin);
         consulta.data[strcspn(consulta.data, "\n")] = '\0';
 
+		fflush(stdin);
+
         printf("Digite a hora da consulta (formato HH:MM): ");
         fgets(consulta.hora, MAX_HORA_LENGTH, stdin);
         consulta.hora[strcspn(consulta.hora, "\n")] = '\0';
+
+		fflush(stdin);
 
         printf("Digite o nome do paciente: ");
         fgets(paciente.nome, MAX_COMPRIMENTO_NOME, stdin);
@@ -244,36 +250,41 @@ void triagemPacientes(Paciente pacientes[], int quantidadePacientes) {
 }
 
 void mostrarPacientesAgendados() {
-	printf("\n--- Pacientes Agendados ---\n");
-	for (int i = 0; i < num_consultas; i++) {
-		printf("Consulta %d:\n", i + 1);
-		printf("Médico: %s\n", consultas_agendadas[i].consulta.nome_medico);
-		printf("Data: %s\n", consultas_agendadas[i].consulta.data);
-		printf("Hora: %s\n", consultas_agendadas[i].consulta.hora);
-		printf("Paciente: %s\n", consultas_agendadas[i].paciente.nome);
-		printf("Idade: %d\n", consultas_agendadas[i].paciente.idade);
-		printf("CPF: %s\n", consultas_agendadas[i].paciente.cpf);
-		printf("Telefone: %s\n", consultas_agendadas[i].paciente.telefone);
-		printf("Sintomas: %s\n", consultas_agendadas[i].paciente.sintomas);
-		printf("Gravidade: ");
-		switch (consultas_agendadas[i].paciente.gravidade) {
-			case 0:
-				printf("Verde (pouco urgente)\n");
-				break;
-			case 1:
-				printf("Amarelo (urgente)\n");
-				break;
-			case 2:
-				printf("Laranja (muito urgente)\n");
-				break;
-			case 3:
-				printf("Vermelho (emergência)\n");
-				break;
-			default:
-				printf("Desconhecida\n");
-				break;
+	if(num_consultas == 0){
+		printf("\n Nao ha consultas agendadas!! \n");
+	} else{
+		system("cls");
+		printf("\n--- Pacientes Agendados ---\n");
+		for (int i = 0; i < num_consultas; i++) {
+			printf("Consulta %d:\n", i + 1);
+			printf("Médico: %s\n", consultas_agendadas[i].consulta.nome_medico);
+			printf("Data: %s\n", consultas_agendadas[i].consulta.data);
+			printf("Hora: %s\n", consultas_agendadas[i].consulta.hora);
+			printf("Paciente: %s\n", consultas_agendadas[i].paciente.nome);
+			printf("Idade: %d\n", consultas_agendadas[i].paciente.idade);
+			printf("CPF: %s\n", consultas_agendadas[i].paciente.cpf);
+			printf("Telefone: %s\n", consultas_agendadas[i].paciente.telefone);
+			printf("Sintomas: %s\n", consultas_agendadas[i].paciente.sintomas);
+			printf("Gravidade: ");
+			switch (consultas_agendadas[i].paciente.gravidade) {
+				case 0:
+					printf("Verde (pouco urgente)\n");
+					break;
+				case 1:
+					printf("Amarelo (urgente)\n");
+					break;
+				case 2:
+					printf("Laranja (muito urgente)\n");
+					break;
+				case 3:
+					printf("Vermelho (emergência)\n");
+					break;
+				default:
+					printf("Desconhecida\n");
+					break;
+			}
+			printf("--------------------------\n");
 		}
-		printf("--------------------------\n");
 	}
 }
 
