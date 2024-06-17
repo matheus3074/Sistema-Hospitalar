@@ -10,25 +10,6 @@
 #define MAX_COMPRIMENTO_CPF 15
 #define MAX_COMPRIMENTO_TELEFONE 20
 
-typedef struct {
-    char nome[MAX_COMPRIMENTO_NOME];
-    int idade;
-    char cpf[MAX_COMPRIMENTO_CPF];
-    char telefone[MAX_COMPRIMENTO_TELEFONE];
-    char sintomas[MAX_COMPRIMENTO_SINTOMAS];
-    int gravidade;
-} Paciente;
-
-struct Consulta {
-    char nome_medico[MAX_COMPRIMENTO_NOME];
-    char data[MAX_DATA_LENGTH];
-    char hora[MAX_HORA_LENGTH];
-};
-
-struct ConsultaAgendada {
-    struct Consulta consulta;
-    struct Paciente paciente;
-};
 
 struct ConsultaAgendada consultas_agendadas[MAX_PACIENTES];
 int num_consultas = 0;
@@ -75,8 +56,8 @@ int verificarCPFValido(const char *cpf) {
 }
 
 void agendarConsulta() {
-    struct Consulta consulta;
-    struct Paciente paciente;
+    Consulta consulta;
+    Paciente paciente;
     int i;
 
     limparTela();
@@ -158,8 +139,8 @@ void agendarConsulta() {
     }
 }
 
-void adicionarPaciente(struct Paciente pacientes[], int *quantidadePacientes) {
-    struct Paciente paciente;
+void adicionarPaciente(Paciente pacientes[], int *quantidadePacientes) {
+    Paciente paciente;
     int i;
 
     printf("Nome do paciente: ");
@@ -212,8 +193,8 @@ void adicionarPaciente(struct Paciente pacientes[], int *quantidadePacientes) {
 }
 
 int compararGravidade(const void *a, const void *b) {
-    const struct Paciente *pacienteA = (const struct Paciente *)a;
-    const struct Paciente *pacienteB = (const struct Paciente *)b;
+    Paciente *pacienteA = (Paciente *)a;
+    Paciente *pacienteB = (Paciente *)b;
 
     if (pacienteA->gravidade < pacienteB->gravidade) {
         return 1;
@@ -224,13 +205,13 @@ int compararGravidade(const void *a, const void *b) {
 	}
 }
 
-void triagemPacientes(struct Paciente pacientes[], int quantidadePacientes) {
+void triagemPacientes(Paciente pacientes[], int quantidadePacientes) {
 	limparTela();
 
 	if (quantidadePacientes <= 0) {
 		printf("Nenhum paciente cadastrado!\n");
 	} else {
-		qsort(pacientes, quantidadePacientes, sizeof(struct Paciente), compararGravidade);
+		qsort(pacientes, quantidadePacientes, sizeof(Paciente), compararGravidade);
 		printf("Pacientes em ordem de triagem:\n");
 		for (int i = 0; i < quantidadePacientes; i++) {
 			printf("Paciente %d:\n", i + 1);
@@ -306,7 +287,7 @@ void menu() {
 	printf("Escolha uma opção: ");
 }
 
-void executarOpcao(int opcao, struct Paciente pacientes[], int *quantidadePacientes) {
+void executarOpcao(int opcao,Paciente pacientes[], int *quantidadePacientes) {
 	switch (opcao) {
 		case 1:
 			agendarConsulta();
