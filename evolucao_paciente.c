@@ -211,20 +211,3 @@ void acessarDocumentoRequisicaoExames() {
     fclose(arquivoDeRequisicaoDeExames);
 }
 
-void acessarDocumentoRequisicaoExames() {
-    FILE *arquivoDeRequisicaoDeExames;
-    char linha[500];
-
-    arquivoDeRequisicaoDeExames = fopen("requisicao_exames.txt", "r");
-
-    if (arquivoDeRequisicaoDeExames == NULL) {
-        printf("Nenhum arquivo de requisição de exames foi encontrado!\n");
-        return;
-    }
-
-    printf("\n--- Requisição de Exames ---\n");
-    while (fgets(linha, sizeof(linha), arquivoDeRequisicaoDeExames)) {
-        printf("%s", linha);
-    }
-    fclose(arquivoDeRequisicaoDeExames);
-}
