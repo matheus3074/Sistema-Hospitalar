@@ -26,7 +26,7 @@ void corrigirCadastro(Cadastro *funcionario) {
 
     system("cls");
 
-    printf("\nDeseja corrigir algum campo? (S/N): ");
+     printf("\nDeseja corrigir algum campo? (S/N): ");
     scanf(" %c", &opcao);
     getchar(); // Limpa o buffer do scanf
 
@@ -48,12 +48,12 @@ void corrigirCadastro(Cadastro *funcionario) {
             case 1:
                 printf("Informe o novo nome: ");
                 fgets(funcionario->nome, sizeof(funcionario->nome), stdin);
-                funcionario->nome[strcspn(funcionario->nome, "\n")] = 0; // Remove newline
+                funcionario->nome[strcspn(funcionario->nome, "\n")] = '\0'; // Remove newline
                 break;
             case 2:
                 printf("Informe o novo CPF: ");
                 fgets(funcionario->cpf, sizeof(funcionario->cpf), stdin);
-                funcionario->cpf[strcspn(funcionario->cpf, "\n")] = 0; // Remove newline
+                funcionario->cpf[strcspn(funcionario->cpf, "\n")] = '\0'; // Remove newline
                 break;
             case 3:
                 printf("Informe o novo endereco: ");
