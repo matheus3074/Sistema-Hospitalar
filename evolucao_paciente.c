@@ -93,3 +93,106 @@ void documentoDeAltaDoPaciente() {
         printf("Documento de alta do paciente criado com sucesso!\n");
     }
 }
+
+void requisicaoDeExames () {
+    FILE *arquivo; 
+    char nomePaciente[100], dataNascimento[20], genero[20], nomeMedico[100], crm[20], observacoes[500], dataRequisicao[20];
+   
+    arquivo = fopen("requisicao_exames.txt", "w");
+
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo!");
+        return 1;
+    }
+   
+    printf("Digite o nome do paciente: ");
+    fgets(nomePaciente, sizeof(nomePaciente), stdin);
+    printf("Digite a data de nascimento do paciente: ");
+    fgets(dataNascimento, sizeof(dataNascimento), stdin);
+    printf("Digite o gênero do paciente: ");
+    fgets(genero, sizeof(genero), stdin);
+    printf("Digite o nome do médico responsável: ");
+    fgets(nomeMedico, sizeof(nomeMedico), stdin);
+    printf("Digite o CRM do médico: ");
+    fgets(crm, sizeof(crm), stdin);
+    printf("Digite observações (se houver): ");
+    fgets(observacoes, sizeof(observacoes), stdin);
+    printf("Digite a data da requisição: ");
+    fgets(dataRequisicao, sizeof(dataRequisicao), stdin);
+   
+    fprintf(arquivo, "--- Requisição de Exames ---\n");
+    fprintf(arquivo, "Paciente: %s", nomePaciente);
+    fprintf(arquivo, "Data de Nascimento: %s", dataNascimento);
+    fprintf(arquivo, "Gênero: %s", genero);
+    fprintf(arquivo, "Médico Responsável: %s", nomeMedico);
+    fprintf(arquivo, "CRM: %s", crm);
+    fprintf(arquivo, "Observações: %s", observacoes);
+    fprintf(arquivo, "Data da Requisição: %s", dataRequisicao);
+    fprintf(arquivo, "--- Fim do Documento ---");
+   
+
+    fclose(arquivo);
+   
+    printf("Documento de requisição de exames criado com sucesso!");
+   
+    return 0;
+
+}
+
+void acessarDocumentoEvolucao() {
+    FILE *arquivoDaEvolucaoDoPaciente;
+    char linha[500];
+
+    arquivoDaEvolucaoDoPaciente = fopen("Evolucao_do_paciente.txt", "r");
+
+    if (arquivoDaEvolucaoDoPaciente == NULL) {
+        printf("Nenhum arquivo de evolução do paciente foi encontrado!\n");
+        return;
+    }
+
+    printf("\n--- Evolução do Paciente ---\n");
+    while (fgets(linha, sizeof(linha), arquivoDaEvolucaoDoPaciente)) {
+        printf("%s", linha);
+    }
+    fclose(arquivoDaEvolucaoDoPaciente);
+}
+
+void acessarDocumentoAlta() {
+    FILE *arquivoDeAltaDoPaciente;
+    char linha[500];
+
+    arquivoDeAltaDoPaciente = fopen("Alta_do_paciente.txt", "r");
+
+    if (arquivoDeAltaDoPaciente == NULL) {
+        printf("Nenhum arquivo de alta do paciente foi encontrado! \n");
+        return;
+    }
+
+    printf("\n--- Boletim Médico de Alta ---\n");
+    while (fgets(linha, sizeof(linha), arquivoDeAltaDoPaciente)) {
+        printf("%s", linha);
+    }
+    fclose(arquivoDeAltaDoPaciente);
+}
+
+void acessarDocumentoRequisicaoExames() {
+    FILE *arquivoDeRequisicaoDeExames;
+    char linha[500];
+
+    arquivoDeRequisicaoDeExames = fopen("requisicao_exames.txt", "r");
+
+    if (arquivoDeRequisicaoDeExames == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
+        return;
+    }
+
+    printf("\n--- Requisição de Exames ---\n");
+    while (fgets(linha, sizeof(linha), arquivoDeRequisicaoDeExames)) {
+        printf("%s", linha);
+    }
+    fclose(arquivoDeRequisicaoDeExames);
+}
+
+
+
+
