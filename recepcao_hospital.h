@@ -20,6 +20,8 @@ typedef struct {
 
 void limparTela();
 void pausarTela();
+void agendarConsulta();
+void mostrarPacientesAgendados();
 void adicionarPaciente(Paciente pacientes[], int *quantidadePacientes);
 void triagemPacientes(Paciente pacientes[], int quantidadePacientes);
 void menu();
