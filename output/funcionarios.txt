@@ -1,4 +1,0 @@
-matheus Amaral Azevedo;1708435565;rua barra Dourada;167;matheus.a.azevedo6@ba.estudante.senai.br;-1316717355;Auxiliar de recursos humanos;1000
-Moab;797463888;rua barra da tijuca;98;moab.santos@ba.estudante.senai.br;-1317093784;auxiliar Recursos humanos;1001
-gabriel santos;1790030340;rua alameda da purpurina;24;gabriel.santos@ba.estudante.senai.br;-1318197281;m‚dico;1002
-Joao Gabriel;-218882420;rua da eletricidade;21;joao.gabrie@ba.estudante.senai.br;-1316336863;recepcionista;1003

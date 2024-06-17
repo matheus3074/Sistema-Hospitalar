@@ -1,6 +1,0 @@
---- Evolu√ß√£o do paciente ---
-Paciente: joao gabriel
-Idade: ±∑wàLeito: Sexo: masculinoM√©dico Respons√°vel: 
-CRM: 4544
-Diagnostico: paciente com DFT em est†gio avancado, sendo incapaz de conversar normalmente
-Data da Requisi√ß√£o: 14/06/202--- Fim do Documento ---
