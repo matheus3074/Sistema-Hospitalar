@@ -10,7 +10,6 @@
 #define MAX_COMPRIMENTO_CPF 15
 #define MAX_COMPRIMENTO_TELEFONE 20
 
-
 struct ConsultaAgendada consultas_agendadas[MAX_PACIENTES];
 int num_consultas = 0;
 
@@ -23,7 +22,7 @@ void limparTela() {
 }
 
 void pausarTela() {
-    printf("Pressione Enter para continuar...");
+    printf("\tPressione Enter para continuar...");
     getchar();
     getchar();
 }
@@ -40,14 +39,12 @@ int verificarEntradaNumerica(const char *entrada) {
 int verificarCPFValido(const char *cpf) {
     int i;
 
-    // Verifica se todos os caracteres são dígitos numéricos
     for (i = 0; i < strlen(cpf); i++) {
         if (!isdigit(cpf[i])) {
             return 0;
         }
     }
 
-    // Verifica se o CPF tem exatamente 11 dígitos
     if (strlen(cpf) != 11) {
         return 0;
     }
@@ -63,66 +60,66 @@ void agendarConsulta() {
     limparTela();
 
     if (num_consultas < MAX_PACIENTES) {
-        printf("\n=== Agendamento de Consulta ===\n");
+        printf("\n\t=== Agendamento de Consulta ===\n");
 
 		fflush(stdin);
 
-        printf("Digite o nome do médico: ");
+        printf("\tDigite o nome do medico: ");
         fgets(consulta.nome_medico, MAX_COMPRIMENTO_NOME, stdin);
         consulta.nome_medico[strcspn(consulta.nome_medico, "\n")] = '\0';
 
-        printf("Digite a data da consulta (formato AAAA-MM-DD): ");
+        printf("\tDigite a data da consulta (formato AAAA-MM-DD): ");
         fgets(consulta.data, MAX_DATA_LENGTH, stdin);
         consulta.data[strcspn(consulta.data, "\n")] = '\0';
 
 		fflush(stdin);
 
-        printf("Digite a hora da consulta (formato HH:MM): ");
+        printf("\tDigite a hora da consulta (formato HH:MM): ");
         fgets(consulta.hora, MAX_HORA_LENGTH, stdin);
         consulta.hora[strcspn(consulta.hora, "\n")] = '\0';
 
 		fflush(stdin);
 
-        printf("Digite o nome do paciente: ");
+        printf("\tDigite o nome do paciente: ");
         fgets(paciente.nome, MAX_COMPRIMENTO_NOME, stdin);
         paciente.nome[strcspn(paciente.nome, "\n")] = '\0';
 
-        printf("Digite a idade do paciente: ");
+        printf("\tDigite a idade do paciente: ");
         scanf("%d", &paciente.idade);
         getchar();
 
         if (paciente.idade <= 0) {
-            printf("Idade inválida. Informe uma idade positiva.\n");
+            printf("\tIdade invalida. Informe uma idade positiva.\n");
             return;
         }
 
-        printf("Digite o CPF do paciente: ");
+        printf("\tDigite o CPF do paciente: ");
         fgets(paciente.cpf, MAX_COMPRIMENTO_CPF, stdin);
         paciente.cpf[strcspn(paciente.cpf, "\n")] = '\0';
 
         if (!verificarCPFValido(paciente.cpf)) {
-            printf("CPF inválido. Deve conter exatamente 11 dígitos numéricos.\n");
+            printf("\tCPF invalido. Deve conter exatamente 11 digitos numericos.\n");
             return;
         }
 
-        printf("Digite o telefone do paciente: (**)*****-**** ");
+        printf("\tDigite o telefone do paciente: (**)*****-**** ");
         fgets(paciente.telefone, MAX_COMPRIMENTO_TELEFONE, stdin);
         paciente.telefone[strcspn(paciente.telefone, "\n")] = '\0';
 
-        printf("Descreva os sintomas do paciente: ");
+        printf("\tDescreva os sintomas do paciente: ");
         fgets(paciente.sintomas, MAX_COMPRIMENTO_SINTOMAS, stdin);
         paciente.sintomas[strcspn(paciente.sintomas, "\n")] = '\0';
 
-        printf("Informe a gravidade do caso:\n");
-        printf("0 - Verde (pouco urgente)\n");
-        printf("1 - Amarelo (urgente)\n");
-        printf("2 - Laranja (muito urgente)\n");
-        printf("3 - Vermelho (emergência)\n");
+        printf("\tInforme a gravidade do caso:\n");
+        printf("\t0 - Verde (pouco urgente)\n");
+        printf("\t1 - Amarelo (urgente)\n");
+        printf("\t2 - Laranja (muito urgente)\n");
+        printf("\t3 - Vermelho (emergencia)\n");
         scanf("%d", &paciente.gravidade);
         getchar();
 
         if (paciente.gravidade < 0 || paciente.gravidade > 3) {
-            printf("Gravidade inválida. Escolha um valor entre 0 e 3.\n");
+            printf("\tGravidade invalida. Escolha um valor entre 0 e 3.\n");
             return;
         }
 
@@ -139,9 +136,9 @@ void agendarConsulta() {
 
         num_consultas++;
 
-        printf("Consulta agendada com sucesso!\n");
+        printf("\tConsulta agendada com sucesso!\n");
     } else {
-        printf("Limite máximo de consultas agendadas atingido.\n");
+        printf("\tLimite maximo de consultas agendadas atingido.\n");
     }
 }
 
@@ -149,53 +146,53 @@ void adicionarPaciente(Paciente pacientes[], int *quantidadePacientes) {
     Paciente paciente;
     int i;
 
-    printf("Nome do paciente: ");
+    printf("\tNome do paciente: ");
     getchar();
     fgets(pacientes[*quantidadePacientes].nome, MAX_COMPRIMENTO_NOME, stdin);
     pacientes[*quantidadePacientes].nome[strcspn(pacientes[*quantidadePacientes].nome, "\n")] = '\0';
 
-    printf("Idade do paciente: ");
+    printf("\tIdade do paciente: ");
     scanf("%d", &pacientes[*quantidadePacientes].idade);
     getchar();
 
     if (pacientes[*quantidadePacientes].idade <= 0) {
-        printf("Idade inválida. Informe uma idade positiva.\n");
+        printf("\tIdade invalida. Informe uma idade positiva.\n");
         return;
     }
 
     do {
-        printf("CPF do paciente: ");
+        printf("\tCPF do paciente: ");
         fgets(pacientes[*quantidadePacientes].cpf, MAX_COMPRIMENTO_CPF, stdin);
         pacientes[*quantidadePacientes].cpf[strcspn(pacientes[*quantidadePacientes].cpf, "\n")] = '\0';
 
         if (!verificarCPFValido(pacientes[*quantidadePacientes].cpf)) {
-            printf("CPF inválido. Deve conter exatamente 11 dígitos numéricos.\n");
+            printf("\tCPF invalido. Deve conter exatamente 11 digitos numericos.\n");
         }
     } while (!verificarCPFValido(pacientes[*quantidadePacientes].cpf));
 
-    printf("Telefone do paciente (com DDD): ");
+    printf("\tTelefone do paciente (com DDD): ");
     fgets(pacientes[*quantidadePacientes].telefone, MAX_COMPRIMENTO_TELEFONE, stdin);
     pacientes[*quantidadePacientes].telefone[strcspn(pacientes[*quantidadePacientes].telefone, "\n")] = '\0';
 
-    printf("Descreva os sintomas do paciente: ");
+    printf("\tDescreva os sintomas do paciente: ");
     fgets(pacientes[*quantidadePacientes].sintomas, MAX_COMPRIMENTO_SINTOMAS, stdin);
     pacientes[*quantidadePacientes].sintomas[strcspn(pacientes[*quantidadePacientes].sintomas, "\n")] = '\0';
 
-    printf("Informe a gravidade do caso (0 a 3):\n");
-    printf("0 - Verde (pouco urgente)\n");
-    printf("1 - Amarelo (urgente)\n");
-    printf("2 - Laranja (muito urgente)\n");
-    printf("3 - Vermelho (emergência)\n");
+    printf("\tInforme a gravidade do caso (0 a 3):\n");
+    printf("\t0 - Verde (pouco urgente)\n");
+    printf("\t1 - Amarelo (urgente)\n");
+    printf("\t2 - Laranja (muito urgente)\n");
+    printf("\t3 - Vermelho (emergencia)\n");
     scanf("%d", &pacientes[*quantidadePacientes].gravidade);
     getchar();
 
     if (pacientes[*quantidadePacientes].gravidade < 0 || pacientes[*quantidadePacientes].gravidade > 3) {
-        printf("Gravidade inválida. Escolha um valor entre 0 e 3.\n");
+        printf("\tGravidade invalida. Escolha um valor entre 0 e 3.\n");
         return;
     }
 
     (*quantidadePacientes)++;
-    printf("Paciente adicionado com sucesso.\n");
+    printf("\tPaciente adicionado com sucesso.\n");
 }
 
 int compararGravidade(const void *a, const void *b) {
@@ -215,36 +212,37 @@ void triagemPacientes(Paciente pacientes[], int quantidadePacientes) {
 	limparTela();
 
 	if (quantidadePacientes <= 0) {
-		printf("Nenhum paciente cadastrado!\n");
+		printf("\tNenhum paciente cadastrado!\n");
 	} else {
 		qsort(pacientes, quantidadePacientes, sizeof(Paciente), compararGravidade);
-		printf("Pacientes em ordem de triagem:\n");
+		printf("\tPacientes em ordem de triagem:\n");
+		
 		for (int i = 0; i < quantidadePacientes; i++) {
-			printf("Paciente %d:\n", i + 1);
-			printf("Nome: %s\n", pacientes[i].nome);
-			printf("Idade: %d\n", pacientes[i].idade);
-			printf("CPF: %s\n", pacientes[i].cpf);
-			printf("Telefone: %s\n", pacientes[i].telefone);
-			printf("Sintomas: %s\n", pacientes[i].sintomas);
-			printf("Gravidade: ");
+			printf("\tPaciente %d:\n", i + 1);
+			printf("\tNome: %s\n", pacientes[i].nome);
+			printf("\tIdade: %d\n", pacientes[i].idade);
+			printf("\tCPF: %s\n", pacientes[i].cpf);
+			printf("\tTelefone: %s\n", pacientes[i].telefone);
+			printf("\tSintomas: %s\n", pacientes[i].sintomas);
+			printf("\tGravidade: ");
 			switch (pacientes[i].gravidade) {
 				case 0:
-					printf("Verde (pouco urgente)\n");
+					printf("\tVerde (pouco urgente)\n");
 					break;
 				case 1:
-					printf("Amarelo (urgente)\n");
+					printf("\tAmarelo (urgente)\n");
 					break;
 				case 2:
-					printf("Laranja (muito urgente)\n");
+					printf("\tLaranja (muito urgente)\n");
 					break;
 				case 3:
-					printf("Vermelho (emergência)\n");
+					printf("\tVermelho (emergencia)\n");
 					break;
 				default:
-					printf("Desconhecida\n");
+					printf("\tDesconhecida\n");
 					break;
 			}
-			printf("--------------------------\n");
+			printf("\t--------------------------\n");
 		}
 	}
 }
@@ -254,73 +252,36 @@ void mostrarPacientesAgendados() {
 		printf("\n Nao ha consultas agendadas!! \n");
 	} else{
 		system("cls");
-		printf("\n--- Pacientes Agendados ---\n");
+		printf("\n\t--- Pacientes Agendados ---\n");
 		for (int i = 0; i < num_consultas; i++) {
-			printf("Consulta %d:\n", i + 1);
-			printf("Médico: %s\n", consultas_agendadas[i].consulta.nome_medico);
-			printf("Data: %s\n", consultas_agendadas[i].consulta.data);
-			printf("Hora: %s\n", consultas_agendadas[i].consulta.hora);
-			printf("Paciente: %s\n", consultas_agendadas[i].paciente.nome);
-			printf("Idade: %d\n", consultas_agendadas[i].paciente.idade);
-			printf("CPF: %s\n", consultas_agendadas[i].paciente.cpf);
-			printf("Telefone: %s\n", consultas_agendadas[i].paciente.telefone);
-			printf("Sintomas: %s\n", consultas_agendadas[i].paciente.sintomas);
-			printf("Gravidade: ");
+			printf("\tConsulta %d:\n", i + 1);
+			printf("\tMedico: %s\n", consultas_agendadas[i].consulta.nome_medico);
+			printf("\tData: %s\n", consultas_agendadas[i].consulta.data);
+			printf("\tHora: %s\n", consultas_agendadas[i].consulta.hora);
+			printf("\tPaciente: %s\n", consultas_agendadas[i].paciente.nome);
+			printf("\tIdade: %d\n", consultas_agendadas[i].paciente.idade);
+			printf("\tCPF: %s\n", consultas_agendadas[i].paciente.cpf);
+			printf("\tTelefone: %s\n", consultas_agendadas[i].paciente.telefone);
+			printf("\tSintomas: %s\n", consultas_agendadas[i].paciente.sintomas);
+			printf("\tGravidade: ");
 			switch (consultas_agendadas[i].paciente.gravidade) {
 				case 0:
-					printf("Verde (pouco urgente)\n");
+					printf("\tVerde (pouco urgente)\n");
 					break;
 				case 1:
-					printf("Amarelo (urgente)\n");
+					printf("\tAmarelo (urgente)\n");
 					break;
 				case 2:
-					printf("Laranja (muito urgente)\n");
+					printf("\tLaranja (muito urgente)\n");
 					break;
 				case 3:
-					printf("Vermelho (emergência)\n");
+					printf("\tVermelho (emergencia)\n");
 					break;
 				default:
-					printf("Desconhecida\n");
+					printf("\tDesconhecida\n");
 					break;
 			}
-			printf("--------------------------\n");
+			printf("\t--------------------------\n");
 		}
-	}
-}
-
-void menu() {
-	printf("\nRecepção do Hospital\n");
-	printf("1. Agendar Consulta\n");
-	printf("2. Adicionar Paciente\n");
-	printf("3. Triagem de Pacientes\n");
-	printf("4. Mostrar Pacientes Agendados\n");
-	printf("5. Sair\n");
-	printf("Escolha uma opção: ");
-}
-
-void executarOpcao(int opcao,Paciente pacientes[], int *quantidadePacientes) {
-	switch (opcao) {
-		case 1:
-			agendarConsulta();
-			pausarTela();
-			break;
-		case 2:
-			adicionarPaciente(pacientes, quantidadePacientes);
-			pausarTela();
-			break;
-		case 3:
-			triagemPacientes(pacientes, *quantidadePacientes);
-			pausarTela();
-			break;
-		case 4:
-			mostrarPacientesAgendados();
-			pausarTela();
-			break;
-		case 5:
-			printf("Saindo...\n");
-			break;
-		default:
-			printf("Opção inválida. Tente novamente.\n");
-			pausarTela();
 	}
 }
