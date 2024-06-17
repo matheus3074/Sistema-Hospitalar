@@ -157,7 +157,7 @@ void recepcaoMenu(Paciente pacientes[], int *quantidadePacientes)
 
 void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
 {
-    int opcao;
+    int opcao,opcaoDoc;
 
     do
     {
@@ -165,10 +165,12 @@ void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
         printf("Menu de Evolução de Pacientes\n");
         printf("1. Criar Documento de Evolução do Paciente\n");
         printf("2. Criar Documento de Alta do Paciente\n");
-        printf("3. Sair\n");
+        printf("3. Criar Documento de Requisição do exame");
+        printf("Procurar documentos");
+        printf("4. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
-        getchar(); // Limpa o buffer do scanf
+        getchar(); 
 
         switch (opcao)
         {
@@ -181,10 +183,41 @@ void evolucaoPacienteMenu(Paciente pacientes[], int quantidadePacientes)
             documentoDeAltaDoPaciente();
             break;
         case 3:
+            do{
+                system("cls");
+                limparTela();
+                printf("1. Procurar Documento de Evolução do Paciente\n");
+                printf("2. Procurar Documento de Alta do Paciente\n");
+                printf("3. Procurar Documento de Requisição do exame");
+                printf("4. Sair\n");
+                printf("Escolha uma opção: ");
+                scanf("%d", &opcaoDoc);
+                fflush(stdin);
+                switch (opcaoDoc){
+                    case 1:
+                        system("cls");
+                        acessarDocumentoEvolucao();
+                        break;
+                    case 2:
+                        system("cls");
+                        acessarDocumentoAlta();
+                        break;
+                    case 3:
+                        system("cls");
+                        acessarDocumentoRequisicaoExames();
+                        break;
+                    case 4:
+                        printf("Saindo...\n");
+                        break;
+                    default:
+                        printf("Opção inválida. Tente novamente.\n");
+                }}while(opcaoDoc != 4);
+            
+        case 4:
             printf("Saindo...\n");
             break;
         default:
             printf("Opção inválida. Tente novamente.\n");
         }
-    } while (opcao != 3);
+    } while (opcao!= 3);
 }
