@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX_NOME_MEDICO 50
 #define MAX_DATA_LENGTH 20
@@ -48,63 +49,102 @@ void pausarTela() {
 	getchar();
 }
 
+int verificarEntradaNumerica(const char *entrada) {
+	for (int i = 0; entrada[i] != '\0'; i++) {
+		if (!isdigit(entrada[i])) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
 void agendarConsulta() {
 	struct Consulta consulta;
 	struct Paciente paciente;
+	int i;
 
 	limparTela();
 
-	printf("\n=== Agendamento de Consulta ===\n");
+	if (num_consultas < MAX_PACIENTES) {
+		printf("\n=== Agendamento de Consulta ===\n");
 
-	printf("Digite o nome do médico: ");
-	fgets(consulta.nome_medico, MAX_COMPRIMENTO_NOME, stdin);
-	consulta.nome_medico[strcspn(consulta.nome_medico, "\n")] = '\0';
+		printf("Digite o nome do médico: ");
+		fgets(consulta.nome_medico, MAX_COMPRIMENTO_NOME, stdin);
+		consulta.nome_medico[strcspn(consulta.nome_medico, "\n")] = '\0';
 
-	printf("Digite a data da consulta (formato AAAA-MM-DD): ");
-	fgets(consulta.data, MAX_DATA_LENGTH, stdin);
-	consulta.data[strcspn(consulta.data, "\n")] = '\0';
+		printf("Digite a data da consulta (formato AAAA-MM-DD): ");
+		fgets(consulta.data, MAX_DATA_LENGTH, stdin);
+		consulta.data[strcspn(consulta.data, "\n")] = '\0';
 
-	printf("Digite a hora da consulta (formato HH:MM): ");
-	fgets(consulta.hora, MAX_HORA_LENGTH, stdin);
-	consulta.hora[strcspn(consulta.hora, "\n")] = '\0';
+		printf("Digite a hora da consulta (formato HH:MM): ");
+		fgets(consulta.hora, MAX_HORA_LENGTH, stdin);
+		consulta.hora[strcspn(consulta.hora, "\n")] = '\0';
 
-	printf("Digite o nome do paciente: ");
-	fgets(paciente.nome, MAX_COMPRIMENTO_NOME, stdin);
-	paciente.nome[strcspn(paciente.nome, "\n")] = '\0';
+		printf("Digite o nome do paciente: ");
+		fgets(paciente.nome, MAX_COMPRIMENTO_NOME, stdin);
+		paciente.nome[strcspn(paciente.nome, "\n")] = '\0';
 
-	printf("Digite a idade do paciente: ");
-	scanf("%d", &paciente.idade);
-	getchar();
+		printf("Digite a idade do paciente: ");
+		scanf("%d", &paciente.idade);
+		getchar();
 
-	printf("Digite o CPF do paciente: ");
-	fgets(paciente.cpf, MAX_COMPRIMENTO_CPF, stdin);
-	paciente.cpf[strcspn(paciente.cpf, "\n")] = '\0';
+		if (paciente.idade <= 0) {
+			printf("Idade inválida. Informe uma idade positiva.\n");
+			return;
+		}
 
-	printf("Digite o telefone do paciente: ");
-	fgets(paciente.telefone, MAX_COMPRIMENTO_TELEFONE, stdin);
-	paciente.telefone[strcspn(paciente.telefone, "\n")] = '\0';
+		printf("Digite o CPF do paciente: ");
+		fgets(paciente.cpf, MAX_COMPRIMENTO_CPF, stdin);
+		paciente.cpf[strcspn(paciente.cpf, "\n")] = '\0';
 
-	printf("Descreva os sintomas do paciente: ");
-	fgets(paciente.sintomas, MAX_COMPRIMENTO_SINTOMAS, stdin);
-	paciente.sintomas[strcspn(paciente.sintomas, "\n")] = '\0';
+		if (strlen(paciente.cpf) != 11) {
+			printf("CPF inválido. Deve conter exatamente 11 dígitos.\n");
+			return;
+		}
 
-	strcpy(consultas_agendadas[num_consultas].consulta.nome_medico, consulta.nome_medico);
-	strcpy(consultas_agendadas[num_consultas].consulta.data, consulta.data);
-	strcpy(consultas_agendadas[num_consultas].consulta.hora, consulta.hora);
+		printf("Digite o telefone do paciente: (**)*****-**** ");
+		fgets(paciente.telefone, MAX_COMPRIMENTO_TELEFONE, stdin);
+		paciente.telefone[strcspn(paciente.telefone, "\n")] = '\0';
 
-	strcpy(consultas_agendadas[num_consultas].paciente.nome, paciente.nome);
-	consultas_agendadas[num_consultas].paciente.idade = paciente.idade;
-	strcpy(consultas_agendadas[num_consultas].paciente.cpf, paciente.cpf);
-	strcpy(consultas_agendadas[num_consultas].paciente.telefone, paciente.telefone);
-	strcpy(consultas_agendadas[num_consultas].paciente.sintomas, paciente.sintomas);
-	consultas_agendadas[num_consultas].paciente.gravidade = paciente.gravidade;
+		printf("Descreva os sintomas do paciente: ");
+		fgets(paciente.sintomas, MAX_COMPRIMENTO_SINTOMAS, stdin);
+		paciente.sintomas[strcspn(paciente.sintomas, "\n")] = '\0';
 
-	num_consultas++;
+		printf("Informe a gravidade do caso:\n");
+		printf("0 - Verde (pouco urgente)\n");
+		printf("1 - Amarelo (urgente)\n");
+		printf("2 - Laranja (muito urgente)\n");
+		printf("3 - Vermelho (emergência)\n");
+		scanf("%d", &paciente.gravidade);
+		getchar();
 
-	printf("Consulta agendada com sucesso!\n");
+		if (paciente.gravidade < 0 || paciente.gravidade > 3) {
+			printf("Gravidade inválida. Escolha um valor entre 0 e 3.\n");
+			return;
+		}
+
+		strcpy(consultas_agendadas[num_consultas].consulta.nome_medico, consulta.nome_medico);
+		strcpy(consultas_agendadas[num_consultas].consulta.data, consulta.data);
+		strcpy(consultas_agendadas[num_consultas].consulta.hora, consulta.hora);
+
+		strcpy(consultas_agendadas[num_consultas].paciente.nome, paciente.nome);
+		consultas_agendadas[num_consultas].paciente.idade = paciente.idade;
+		strcpy(consultas_agendadas[num_consultas].paciente.cpf, paciente.cpf);
+		strcpy(consultas_agendadas[num_consultas].paciente.telefone, paciente.telefone);
+		strcpy(consultas_agendadas[num_consultas].paciente.sintomas, paciente.sintomas);
+		consultas_agendadas[num_consultas].paciente.gravidade = paciente.gravidade;
+
+		num_consultas++;
+
+		printf("Consulta agendada com sucesso!\n");
+	} else {
+		printf("Limite máximo de consultas agendadas atingido.\n");
+	}
 }
 
 void adicionarPaciente(struct Paciente pacientes[], int *quantidadePacientes) {
+	struct Paciente paciente;
+	int i;
 
 	printf("Nome do paciente: ");
 	getchar();
@@ -115,9 +155,19 @@ void adicionarPaciente(struct Paciente pacientes[], int *quantidadePacientes) {
 	scanf("%d", &pacientes[*quantidadePacientes].idade);
 	getchar();
 
+	if (pacientes->idade <= 0) {
+		printf("Idade inválida. Informe uma idade positiva.\n");
+		return;
+	}
+
 	printf("CPF do paciente: ");
 	fgets(pacientes[*quantidadePacientes].cpf, MAX_COMPRIMENTO_CPF, stdin);
 	pacientes[*quantidadePacientes].cpf[strcspn(pacientes[*quantidadePacientes].cpf, "\n")] = '\0';
+
+	if (strlen(paciente.cpf) < 11 && strlen(paciente.cpf) > 11) {
+		printf("CPF inválido. Deve conter exatamente 11 dígitos.\n");
+		return;
+	}
 
 	printf("Telefone do paciente (com DDD): ");
 	fgets(pacientes[*quantidadePacientes].telefone, MAX_COMPRIMENTO_TELEFONE, stdin);
@@ -127,15 +177,19 @@ void adicionarPaciente(struct Paciente pacientes[], int *quantidadePacientes) {
 	fgets(pacientes[*quantidadePacientes].sintomas, MAX_COMPRIMENTO_SINTOMAS, stdin);
 	pacientes[*quantidadePacientes].sintomas[strcspn(pacientes[*quantidadePacientes].sintomas, "\n")] = '\0';
 
-    printf("Informe a gravidade do caso:\n");
+	printf("Informe a gravidade do caso (0 a 3): ");
 	printf("0 - Verde (pouco urgente)\n");
 	printf("1 - Amarelo (urgente)\n");
 	printf("2 - Laranja (muito urgente)\n");
 	printf("3 - Vermelho (emergência)\n");
-	scanf("%d", &pacientes->gravidade);
+	scanf("%d", &pacientes[*quantidadePacientes].gravidade);
 	int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-    
+	while ((c = getchar()) != '\n' && c != EOF);
+
+	if (pacientes[*quantidadePacientes].gravidade < 0 ||  pacientes[*quantidadePacientes].gravidade > 3) {
+		printf("Gravidade inválida. Escolha um valor entre 0 e 3.\n");
+		return;
+	}
 
 	(*quantidadePacientes)++;
 	printf("Paciente adicionado com sucesso.\n");
@@ -145,41 +199,50 @@ int compararGravidade(const void *a, const void *b) {
 	const struct Paciente *pacienteA = (const struct Paciente *)a;
 	const struct Paciente *pacienteB = (const struct Paciente *)b;
 
-	return pacienteB->gravidade - pacienteA->gravidade;
+	if (pacienteA->gravidade < pacienteB->gravidade) {
+		return 1;
+	} else if (pacienteA->gravidade > pacienteB->gravidade) {
+		return -1;
+	} else {
+		return strcmp(pacienteA->nome, pacienteB->nome);
+	}
 }
 
 void triagemPacientes(struct Paciente pacientes[], int quantidadePacientes) {
 	limparTela();
 
-    qsort(pacientes, quantidadePacientes, sizeof(struct Paciente), compararGravidade);
-
-	printf("Pacientes em ordem de triagem:\n");
-	for (int i = 0; i < quantidadePacientes; i++) {
-		printf("Paciente %d:\n", i + 1);
-		printf("Nome: %s\n", pacientes[i].nome);
-		printf("Idade: %d\n", pacientes[i].idade);
-		printf("CPF: %s\n", pacientes[i].cpf);
-		printf("Telefone: %s\n", pacientes[i].telefone);
-		printf("Sintomas: %s\n", pacientes[i].sintomas);
-		printf("Gravidade: ");
-		switch (pacientes[i].gravidade) {
-			case 0:
-				printf("Verde (pouco urgente)\n");
-				break;
-			case 1:
-				printf("Amarelo (urgente)\n");
-				break;
-			case 2:
-				printf("Laranja (muito urgente)\n");
-				break;
-			case 3:
-				printf("Vermelho (emergência)\n");
-				break;
-			default:
-				printf("Desconhecida\n");
-				break;
+	if (quantidadePacientes <= 0) {
+		printf("Nenhum paciente cadastrado!\n");
+	} else {
+		qsort(pacientes, quantidadePacientes, sizeof(struct Paciente), compararGravidade);
+		printf("Pacientes em ordem de triagem:\n");
+		for (int i = 0; i < quantidadePacientes; i++) {
+			printf("Paciente %d:\n", i + 1);
+			printf("Nome: %s\n", pacientes[i].nome);
+			printf("Idade: %d\n", pacientes[i].idade);
+			printf("CPF: %s\n", pacientes[i].cpf);
+			printf("Telefone: %s\n", pacientes[i].telefone);
+			printf("Sintomas: %s\n", pacientes[i].sintomas);
+			printf("Gravidade: ");
+			switch (pacientes[i].gravidade) {
+				case 0:
+					printf("Verde (pouco urgente)\n");
+					break;
+				case 1:
+					printf("Amarelo (urgente)\n");
+					break;
+				case 2:
+					printf("Laranja (muito urgente)\n");
+					break;
+				case 3:
+					printf("Vermelho (emergência)\n");
+					break;
+				default:
+					printf("Desconhecida\n");
+					break;
+			}
+			printf("--------------------------\n");
 		}
-		printf("--------------------------\n");
 	}
 }
 
@@ -268,12 +331,5 @@ int main() {
 		executarOpcao(opcao, pacientes, &quantidadePacientes);
 	} while (opcao != 5);
 
-	
+	return 0;
 }
-
-
-
-
-
-
-
